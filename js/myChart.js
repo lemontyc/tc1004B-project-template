@@ -1,21 +1,30 @@
-var ctx = document.getElementById('myChart').getContext('2d');
-var chart = new Chart(ctx, {
-    // The type of chart we want to create
-    type: 'line',
 
-    // The data for our dataset
+// Create Chart with no data
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'line',
     data: {
-        labels: [],
+        labels: [],         // Labels are empty
         datasets: [{
-            label: 'My First dataset',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
-            data: []
+            label: 'Distance [mm]',
+            data: [],       // Data is empty Adding it later, allows to see a pretty animation!
+            fill: false,
+            borderColor: 'rgba(255, 99, 132, 1)',     
+            borderWidth: 1,
+            lineTension: 0
         }]
     },
-
-    // Configuration options go here
-    options: {}
+    options: {
+        responsive: true,
+        hoverMode: 'index',
+        stacked: false,
+        title: {
+            display: true,
+            text: 'Distancia'
+        },
+        scales: {
+        }
+    }
 });
 
 // Function to add new data to a chart
@@ -54,7 +63,7 @@ $.ajax(
         }
      }
   );
-
+  
 
   // Every 0.5s check for new data
   function fetchLastData(){
@@ -92,7 +101,7 @@ $.ajax(
         }
     );
   }
-
-  setInterval(function(){ 
+  
+setInterval(function(){ 
     fetchLastData(); 
 }, 500);
