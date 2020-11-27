@@ -1,4 +1,3 @@
-
 // Create Chart with no data
 var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
@@ -6,12 +5,17 @@ var myChart = new Chart(ctx, {
     data: {
         labels: [],         // Labels are empty
         datasets: [{
-            label: 'Distance [mm]',
-            data: [],       // Data is empty Adding it later, allows to see a pretty animation!
+            label: 'Temperature C°',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            backgroundColor: 'rgba(255, 99, 132, 1)',
             fill: false,
-            borderColor: 'rgba(255, 99, 132, 1)',     
-            borderWidth: 1,
-            lineTension: 0
+            data: [],
+        }, {
+            label: 'Humidity %',
+            borderColor: 'rgba(99, 255, 132, 1)',
+            backgroundColor: 'rgba(99, 255, 132, 1)',
+            fill: false,
+            data: [],
         }]
     },
     options: {
@@ -20,7 +24,7 @@ var myChart = new Chart(ctx, {
         stacked: false,
         title: {
             display: true,
-            text: 'Distancia'
+            text: 'Temperatura y Humedad'
         },
         scales: {
         }
@@ -28,13 +32,15 @@ var myChart = new Chart(ctx, {
 });
 
 // Function to add new data to a chart
-function addData(chart, label, data) 
+function addData(chart, label, data1, data2) 
 {
+    // Update Label
     chart.data.labels.push(label);
-    chart.data.datasets.forEach((dataset) => 
-    {
-        dataset.data.push(data);
-    });
+
+    // Update each axis
+    chart.data.datasets[0].data.push(data1);
+    chart.data.datasets[1].data.push(data2);
+
     chart.update();
 }
 
@@ -54,7 +60,7 @@ $.ajax(
                 // Extract time from timestamp
                 sensorTime = new Date(jsonData[row]['timestamp']).toLocaleTimeString();
                 // Add data to chart
-                addData(myChart, sensorTime, sensor1Data);
+                addData(myChart, sensorTime, sensor1Data, sensor2Data);
             }
             gauge.set(sensor2Data); // set value of the gauge to the last value of sensor2Value
         },
@@ -90,7 +96,7 @@ $.ajax(
                 else
                 {
                     // Add new record to chart
-                    addData(myChart, sensorTime, sensor1Data);
+                    addData(myChart, sensorTime, sensor1Data, sensor2Data);
                     gauge.set(sensor2Data); // set actual value
                 }
     
