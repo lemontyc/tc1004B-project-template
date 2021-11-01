@@ -1,9 +1,9 @@
 <?php
     // Database credentials
-    $servername = "den1.mysql5.gear.host";
-    $username   = "tc1004bluis";
-    $password   = "Jv3XPz9~Wc5!";
-    $dbname     = "tc1004bluis";
+    $servername = "sql113.unaux.com";
+    $username   = "unaux_30236980";
+    $password   = "8gcf3ev";
+    $dbname     = "unaux_30236980_lemontyc";
     $tbname     = "sensor";
 
     // Create database connection

@@ -44,19 +44,19 @@ $.ajax(
     {
         success: function(data) {
             var jsonData = JSON.parse(data);
-            var sensor1Data ;    // equivalent to sensor1Value
-            var sensor2Data ;    // equivalent to sensor2Value
+            var sensor1Data ;    // equivalent to sensor1value
+            var sensor2Data ;    // equivalent to sensor2value
             var sensorTime ;    // converts timestamp to time (used as label)
             for(row in jsonData){
                 // Extract sensor1Data
-                sensor1Data = jsonData[row]['sensor1Value'];
-                sensor2Data = jsonData[row]['sensor2Value'];
+                sensor1Data = jsonData[row]['sensor1value'];
+                sensor2Data = jsonData[row]['sensor2value'];
                 // Extract time from timestamp
                 sensorTime = new Date(jsonData[row]['timestamp']).toLocaleTimeString();
                 // Add data to chart
                 addData(myChart, sensorTime, sensor1Data);
             }
-            gauge.set(sensor2Data); // set value of the gauge to the last value of sensor2Value
+            gauge.set(sensor2Data); // set value of the gauge to the last value of sensor2value
         },
         error: function() {
           console.log('There was some error performing the AJAX call!');
@@ -67,13 +67,14 @@ $.ajax(
 
   // Every 0.5s check for new data
   function fetchLastData(){
+    
     $.ajax(
         '../data/last.php',
         {
             success: function(data) {
                 var jsonData = JSON.parse(data);
-                var sensor1Data = jsonData[0]['sensor1Value']; 
-                var sensor2Data = jsonData[0]['sensor2Value']; 
+                var sensor1Data = jsonData[0]['sensor1value']; 
+                var sensor2Data = jsonData[0]['sensor2value']; 
                 var sensorTime = new Date(jsonData[0]['timestamp']).toLocaleTimeString();   
                 /* 
                 Use the last time the sensor was updated, and compare that time with
